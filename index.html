@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>학급 홈페이지</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; font-size: 16px; line-height: 1.5; }
@@ -46,13 +46,22 @@
     </section>
 
     <section id="schedule" class="section">
-      <h2>일정 안내</h2>
+      <h2>주요 일정 안내</h2>
       <div class="calendar">
         <ul>
-          <li><strong>4월 28일 ~ 5월 1일:</strong> 중간고사</li>
-          <li><strong>6월 3일:</strong> 모의고사</li>
-          <li><strong>7월 1일 ~ 7월 4일:</strong> 기말고사</li>
+          <li><strong>7월 18일:</strong> 방학식</li>
+          <li><strong>8월 6일:</strong> 개학식</li>
+          <li><strong>8월 31일:</strong> 생기부 마감일</li>
           <li><strong>9월 3일:</strong> 모의고사</li>
+          <li><strong>9월 8일~12일:</strong> 수시원서 접수기간</li>
+          <li><strong>9월 25일~30일:</strong> 2학기 1차 지필</li>
+          <li><strong>10월 3일~12일:</strong> 개천절, 추석, 한글날</li>
+          <li><strong>10월 14일:</strong> 모의고사</li>
+          <li><strong>11월 13일:</strong> 수능</li>
+          <li><strong>12월 5일:</strong> 수능 성적 발표</li>
+          <li><strong>12월 19일:</strong> 축제</li>
+          <li><strong>12월 24일:</strong> 방학식</li>
+          <li><strong>1월 23일:</strong> 졸업식</li>
         </ul>
       </div>
     </section>
@@ -60,15 +69,13 @@
     <section id="notice" class="section">
       <h2>공지사항</h2>
       <div class="notice">
-        <p><strong>6월 10일:</strong> 과학 수행평가 준비물 챙기기</p>
+        <p><strong>7월 18일:</strong> 학년프로젝트 제외 모든 보고서 선생님께 제출</p>
       </div>
     </section>
 
     <section id="resources" class="section">
       <h2>학습자료실</h2>
-      <div class="resource">
-        <p><a href="https://drive.google.com/" target="_blank">[국어] 시 단원 요약 정리</a></p>
-      </div>
+      <div class="resource"></div>
     </section>
 
     <section id="board" class="section">
@@ -82,11 +89,9 @@
 
     <section id="gallery" class="section">
       <h2>갤러리</h2>
-      <div class="gallery" id="galleryList">
-        
-      </div>
+      <div class="gallery" id="galleryList"></div>
       <div class="upload-section">
-        <input type="file" id="photoInput" accept="image/*">
+        <input type="file" id="photoInput" accept="image/*" />
         <button onclick="uploadPhoto()">사진 업로드</button>
       </div>
     </section>
@@ -96,45 +101,7 @@
       <div id="mealList"></div>
     </section>
   </div>
-  <div class="meal-day">
-  <h4>7월 15일 (화)</h4>
-  <ul>
-    <li>친환경홍미밥</li>
-    <li>들깨시래기국</li>
-    <li>매운돼지갈비찜</li>
-    <li>브로콜리된장무침</li>
-    <li>배추김치</li>
-    <li>아이스망고바</li>
-    <li>비쵸비초콜릿</li>
-  </ul>
-</div>
 
-<div class="meal-day">
-  <h4>7월 16일 (수)</h4>
-  <ul>
-    <li>달걀야채볶음밥</li>
-    <li>함흥식비빔냉면</li>
-    <li>통갈비맛바/깐풍사과소스</li>
-    <li>열무김치</li>
-    <li>도시락김(자율)</li>
-    <li>오백프리미엄요구르트</li>
-  </ul>
-</div>
-<div class="meal-day">
-  <h4>7월 17일 (목)</h4>
-  <ul>
-    <li>친환경녹미밥</li>
-    <li>코코러브마들렌</li>
-    <li>옛날머리고기국밥</li>
-    <li>도토리묵야채무침</li>
-    <li>안심콕찹스테이크</li>
-    <li>한입깍두기</li>
-    <li>머스크멜론</li>
-  </ul>
-</div>
-
-
-  
   <footer>
     <p>&copy; 2025 우리 반 홈페이지</p>
   </footer>
@@ -168,26 +135,30 @@
           wrapper.className = 'gallery-item';
           wrapper.appendChild(img);
           document.getElementById('galleryList').appendChild(wrapper);
-        }
+        };
         reader.readAsDataURL(input.files[0]);
         input.value = '';
       }
     }
 
     async function loadMeals() {
-      const res = await fetch('meals-july.json');
-      const meals = await res.json();
-      const list = document.getElementById('mealList');
-      meals.forEach(day => {
-        const div = document.createElement('div');
-        div.className = 'meal-day';
-        div.innerHTML = `<h4>${day.date}</h4><ul>` + day.meals.map(m => `<li>${m}</li>`).join('') + '</ul>';
-        list.appendChild(div);
-      });
+      try {
+        const res = await fetch('meals-july.json');
+        const meals = await res.json();
+        const list = document.getElementById('mealList');
+        meals.forEach(day => {
+          const div = document.createElement('div');
+          div.className = 'meal-day';
+          div.innerHTML = `<h4>${day.date}</h4><ul>` + day.meals.map(m => `<li>${m}</li>`).join('') + '</ul>';
+          list.appendChild(div);
+        });
+      } catch (e) {
+        console.error("급식 정보를 불러올 수 없습니다:", e);
+        document.getElementById('mealList').innerHTML = "<p>급식 정보를 불러올 수 없습니다.</p>";
+      }
     }
 
     if (document.getElementById('meals')) loadMeals();
   </script>
 </body>
 </html>
-
