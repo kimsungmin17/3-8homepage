@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>학급 홈페이지</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; font-size: 16px; line-height: 1.5; }
+    header, footer { background: #333; color: white; text-align: center; padding: 1em; }
+    nav { background: #555; color: white; display: flex; justify-content: center; gap: 0.5em; padding: 0.5em; flex-wrap: wrap; }
+    nav a { color: white; text-decoration: none; padding: 0.5em 1em; background: #444; border-radius: 5px; transition: background 0.3s; }
+    nav a:hover { background: #666; }
+    .container { padding: 1em; }
+    .section { display: none; margin-bottom: 2em; }
+    .active { display: block; }
+    .board input, .board textarea { width: 100%; padding: 0.5em; margin-bottom: 0.5em; font-size: 1em; }
+    .post, .notice, .resource, .gallery-item { background: white; padding: 1em; margin: 0.5em 0; border-radius: 5px; }
+    .calendar ul, .gallery { list-style: none; padding: 0; }
+    .calendar li { background: white; padding: 0.5em; margin-bottom: 0.5em; border-left: 4px solid #007BFF; }
+    .gallery img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1em; }
+    .upload-section { margin-top: 1em; }
+    .meal-day { background: white; border-left: 4px solid #28a745; padding: 1em; margin-bottom: 1em; border-radius: 5px; }
+    .meal-day h4 { margin: 0 0 0.5em 0; color: #28a745; }
+    .meal-day ul { margin: 0; padding-left: 1.2em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>우리 반 홈페이지</h1>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showSection('info')">정보</a>
+    <a href="#" onclick="showSection('schedule')">일정</a>
+    <a href="#" onclick="showSection('notice')">공지</a>
+    <a href="#" onclick="showSection('resources')">자료실</a>
+    <a href="#" onclick="showSection('board')">게시판</a>
+    <a href="#" onclick="showSection('gallery')">갤러리</a>
+    <a href="#" onclick="showSection('meals')">이달의 급식</a>
+  </nav>
+
+  <div class="container">
+    <section id="info" class="section active">
+      <h2>정보 제공</h2>
+      <p>안녕하세요! 우리 반 홈페이지입니다. 다양한 정보를 확인하세요.</p>
+    </section>
+
+    <section id="schedule" class="section">
+      <h2>일정 안내</h2>
+      <div class="calendar">
+        <ul>
+          <li><strong>4월 28일 ~ 5월 1일:</strong> 중간고사</li>
+          <li><strong>6월 3일:</strong> 모의고사</li>
+          <li><strong>7월 1일 ~ 7월 4일:</strong> 기말고사</li>
+          <li><strong>9월 3일:</strong> 모의고사</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="notice" class="section">
+      <h2>공지사항</h2>
+      <div class="notice">
+        <p><strong>6월 10일:</strong> 과학 수행평가 준비물 챙기기</p>
+      </div>
+    </section>
+
+    <section id="resources" class="section">
+      <h2>학습자료실</h2>
+      <div class="resource">
+        <p><a href="https://drive.google.com/" target="_blank">[국어] 시 단원 요약 정리</a></p>
+      </div>
+    </section>
+
+    <section id="board" class="section">
+      <h2>익명 게시판</h2>
+      <div class="board">
+        <textarea id="postContent" rows="4" placeholder="내용을 입력하세요..."></textarea>
+        <button onclick="addPost()">글쓰기</button>
+        <div id="postList"></div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <h2>갤러리</h2>
+      <div class="gallery" id="galleryList">
+        
+      </div>
+      <div class="upload-section">
+        <input type="file" id="photoInput" accept="image/*">
+        <button onclick="uploadPhoto()">사진 업로드</button>
+      </div>
+    </section>
+
+    <section id="meals" class="section">
+      <h2>이달의 급식</h2>
+      <div id="mealList"></div>
+    </section>
+  </div>
+  <div class="meal-day">
+  <h4>7월 15일 (화)</h4>
+  <ul>
+    <li>친환경홍미밥</li>
+    <li>들깨시래기국</li>
+    <li>매운돼지갈비찜</li>
+    <li>브로콜리된장무침</li>
+    <li>배추김치</li>
+    <li>아이스망고바</li>
+    <li>비쵸비초콜릿</li>
+  </ul>
+</div>
+
+<div class="meal-day">
+  <h4>7월 16일 (수)</h4>
+  <ul>
+    <li>달걀야채볶음밥</li>
+    <li>함흥식비빔냉면</li>
+    <li>통갈비맛바/깐풍사과소스</li>
+    <li>열무김치</li>
+    <li>도시락김(자율)</li>
+    <li>오백프리미엄요구르트</li>
+  </ul>
+</div>
+<div class="meal-day">
+  <h4>7월 17일 (목)</h4>
+  <ul>
+    <li>친환경녹미밥</li>
+    <li>코코러브마들렌</li>
+    <li>옛날머리고기국밥</li>
+    <li>도토리묵야채무침</li>
+    <li>안심콕찹스테이크</li>
+    <li>한입깍두기</li>
+    <li>머스크멜론</li>
+  </ul>
+</div>
+
+
+  
+  <footer>
+    <p>&copy; 2025 우리 반 홈페이지</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function addPost() {
+      const content = document.getElementById('postContent').value.trim();
+      if (!content) return;
+      const postList = document.getElementById('postList');
+      const post = document.createElement('div');
+      post.className = 'post';
+      const time = new Date().toLocaleString();
+      post.innerHTML = `<p>${content}</p><small>${time}</small>`;
+      postList.prepend(post);
+      document.getElementById('postContent').value = '';
+    }
+
+    function uploadPhoto() {
+      const input = document.getElementById('photoInput');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          const wrapper = document.createElement('div');
+          wrapper.className = 'gallery-item';
+          wrapper.appendChild(img);
+          document.getElementById('galleryList').appendChild(wrapper);
+        }
+        reader.readAsDataURL(input.files[0]);
+        input.value = '';
+      }
+    }
+
+    async function loadMeals() {
+      const res = await fetch('meals-july.json');
+      const meals = await res.json();
+      const list = document.getElementById('mealList');
+      meals.forEach(day => {
+        const div = document.createElement('div');
+        div.className = 'meal-day';
+        div.innerHTML = `<h4>${day.date}</h4><ul>` + day.meals.map(m => `<li>${m}</li>`).join('') + '</ul>';
+        list.appendChild(div);
+      });
+    }
+
+    if (document.getElementById('meals')) loadMeals();
+  </script>
+</body>
+</html>
+
