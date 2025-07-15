@@ -98,7 +98,28 @@
 
     <section id="meals" class="section">
       <h2>이달의 급식</h2>
-      <div id="mealList"></div>
+      <div id="mealList">
+        <div class="meal-day">
+          <h4>7월 15일 (화요일)</h4>
+          <ul>
+            <li>[중식] 친환경홍미밥 · 들깨시래기국 (5.6.9) · 매운돼지갈비찜(학생회) (5.6.10.13.16) · 브로콜리된장무침 (5.6) · 배추김치 (9) · 아이스망고바 · 비쵸비초콜릿 (2)</li>
+            <li>[석식] 친환경쌀밥 · 얼큰한닭개장 (1.5.6.9.13.15) · 상추겉절이 (5.6.8.13) · 김치잡채 (5.6.9.10.13.18) · 통살새우까스와 양념감자 (1.5.6.9.13) · 크링클컷감자튀김 (1.5.6.12) · 나박김치 (9) · 찰떡아이스 (2.5.6)</li>
+          </ul>
+        </div>
+        <div class="meal-day">
+          <h4>7월 16일 (수요일)</h4>
+          <ul>
+            <li>[중식] 달걀야채볶음밥(소량) (1.2.5.6.8.10.12.15.16) · 함흥식비빔냉면 (1.3.5.6.12.13.16) · 통갈비맛바/깐풍사과소스 (1.2.5.6.10.12.13.15.16) · 열무김치 (9) · 도시락김(자율) · 오백프리미엄요구르트 (2)</li>
+          </ul>
+        </div>
+        <div class="meal-day">
+          <h4>7월 17일 (목요일)</h4>
+          <ul>
+            <li>[중식] 친환경녹미밥 · 코코러브마들렌 (1.2.5.6) · 옛날머리고기국밥 (5.6.9.10.13.17.18) · 도토리묵야채무침 (5.6.13) · 안심폭찹스테이크 (5.6.10.12.13) · 한입깍두기 (9) · 머스크멜론</li>
+            <li>[석식] 치킨마요덮밥 (1.5.6.15) · 순두부김치찌개 (5.9.10) · 매운콩나물무침(자) (5.6.8) · 사색미역줄기볶음 (1.5.6) · 한입깍두기 (9) · 비타후르츠주스 (13) · 부드러운우리밀와플 (1.2.5.6)</li>
+          </ul>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -140,25 +161,6 @@
         input.value = '';
       }
     }
-
-    async function loadMeals() {
-      try {
-        const res = await fetch('meals-july.json');
-        const meals = await res.json();
-        const list = document.getElementById('mealList');
-        meals.forEach(day => {
-          const div = document.createElement('div');
-          div.className = 'meal-day';
-          div.innerHTML = `<h4>${day.date}</h4><ul>` + day.meals.map(m => `<li>${m}</li>`).join('') + '</ul>';
-          list.appendChild(div);
-        });
-      } catch (e) {
-        console.error("급식 정보를 불러올 수 없습니다:", e);
-        document.getElementById('mealList').innerHTML = "<p>급식 정보를 불러올 수 없습니다.</p>";
-      }
-    }
-
-    if (document.getElementById('meals')) loadMeals();
   </script>
 </body>
 </html>
